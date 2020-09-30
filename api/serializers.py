@@ -5,9 +5,12 @@ from .models import RoastBoast
 RESOURCE:
 Add a count field to a django rest framework serializer
 https://tinyurl.com/y6aujsya
+https://www.django-rest-framework.org/api-guide/fields/#serializermethodfield
 """
 
 class RoastBoastSerializer(serializers.ModelSerializer):
+
+
     class Meta:
         model = RoastBoast
         fields = [
@@ -17,4 +20,10 @@ class RoastBoastSerializer(serializers.ModelSerializer):
             'down_vote',
             'create_time',
             'update_time',
+            'total_votes',
             ]
+
+    
+    total_votes = serializers.SerializerMethodField()
+    def get_total_votes(self, obj):
+        return (obj.up_vote + obj.down_vote)
