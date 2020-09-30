@@ -32,7 +32,7 @@ class RoastBoastViewSet(viewsets.ModelViewSet):
         if serializer.is_valid():
             # Convert negative number to positive number in Python
             # https://tinyurl.com/y5nlntbo
-            downvote_obj.down_vote = -(downvote_obj.down_vote - 1)
+            downvote_obj.down_vote = downvote_obj.down_vote - 1
             downvote_obj.save()
             return Response({'status': 'downvote set'})
         else:
