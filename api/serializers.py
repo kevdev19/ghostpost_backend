@@ -14,6 +14,7 @@ class RoastBoastSerializer(serializers.ModelSerializer):
     class Meta:
         model = RoastBoast
         fields = [
+            'id',
             'post_type',
             'content',
             'up_vote',
