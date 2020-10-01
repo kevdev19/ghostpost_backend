@@ -14,7 +14,27 @@ class RoastBoastViewSet(viewsets.ModelViewSet):
     queryset = RoastBoast.objects.all()
     serializer_class = RoastBoastSerializer
 
-    @action(detail=True, methods=['post'])
+    @action(detail=False)
+    def roasts(self, request, pk=None):
+        all_roasts = RoastBoast.objects.filter(post_type='R').order_by('-create_time')
+        serializer = self.get_serializer(all_roasts, many=True)
+        return Response(serializer.data)
+    
+    @action(detail=False)
+    def boasts(self, request, pk=None):
+        all_boasts = RoastBoast.objects.filter(post_type='B').order_by('-create_time')
+        serializer = self.get_serializer(all_boasts, many=True)
+        return Response(serializer.data)
+    
+    @action(detail=False)
+    def highestrated(self, request, pk=None):
+        rated = sorted(RoastBoast.objects.all(),
+                   key=lambda p: p.up_vote + p.down_vote, reverse=True)
+        serializer = self.get_serializer(rated, many=True)
+        return Response(serializer.data)
+
+
+    @action(detail=True, methods=['put'])
     def upvote(self, request, pk=None):
         upvote_obj = RoastBoast.objects.get(id=pk)
         serializer = RoastBoastSerializer(data=request.data)
@@ -25,7 +45,7 @@ class RoastBoastViewSet(viewsets.ModelViewSet):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    @action(detail=True, methods=['post'])
+    @action(detail=True, methods=['put'])
     def downvote(self, request, pk=None):
         downvote_obj = RoastBoast.objects.get(id=pk)
         serializer = RoastBoastSerializer(data=request.data)

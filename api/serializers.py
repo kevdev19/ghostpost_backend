@@ -8,23 +8,24 @@ https://tinyurl.com/y6aujsya
 https://www.django-rest-framework.org/api-guide/fields/#serializermethodfield
 """
 
-class RoastBoastSerializer(serializers.ModelSerializer):
+class RoastBoastSerializer(serializers.HyperlinkedModelSerializer):
 
 
     class Meta:
         model = RoastBoast
-        fields = [
-            'id',
-            'post_type',
-            'content',
-            'up_vote',
-            'down_vote',
-            'create_time',
-            'update_time',
-            'total_votes',
-            ]
+        fields = '__all__'
+        # fields = [
+        #     'id',
+        #     'post_type',
+        #     'content',
+        #     'up_vote',
+        #     'down_vote',
+        #     'create_time',
+        #     'update_time',
+        #     'total_votes',
+        #     ]
 
     
     total_votes = serializers.SerializerMethodField()
     def get_total_votes(self, obj):
-        return (obj.up_vote + obj.down_vote)
+        return (obj.up_vote - obj.down_vote)
