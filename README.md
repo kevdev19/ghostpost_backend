@@ -10,7 +10,7 @@ Front End - https://github.com/kevdev19/ghostpost_frontend
 
 Back End - https://github.com/kevdev19/ghostpost_backend
 
-## Credentials
+## Back End Django Credentials
 
 Admin
 u: admin
