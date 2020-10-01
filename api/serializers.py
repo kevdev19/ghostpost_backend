@@ -13,17 +13,17 @@ class RoastBoastSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = RoastBoast
-        fields = '__all__'
-        # fields = [
-        #     'id',
-        #     'post_type',
-        #     'content',
-        #     'up_vote',
-        #     'down_vote',
-        #     'create_time',
-        #     'update_time',
-        #     'total_votes',
-        #     ]
+        # fields = '__all__'
+        fields = [
+            'id',
+            'post_type',
+            'content',
+            'up_vote',
+            'down_vote',
+            'create_time',
+            'update_time',
+            'total_votes',
+            ]
 
     
     total_votes = serializers.SerializerMethodField()
