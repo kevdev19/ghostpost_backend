@@ -34,7 +34,7 @@ class RoastBoastViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
-    @action(detail=True, methods=['put'])
+    @action(detail=True, methods=['post'])
     def upvote(self, request, pk=None):
         upvote_obj = RoastBoast.objects.get(id=pk)
         serializer = RoastBoastSerializer(data=request.data)
@@ -45,7 +45,7 @@ class RoastBoastViewSet(viewsets.ModelViewSet):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    @action(detail=True, methods=['put'])
+    @action(detail=True, methods=['post'])
     def downvote(self, request, pk=None):
         downvote_obj = RoastBoast.objects.get(id=pk)
         serializer = RoastBoastSerializer(data=request.data)
